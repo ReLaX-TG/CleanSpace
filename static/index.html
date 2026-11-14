@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title data-i18n="meta.title">CleanSpace — Home cleaning (portfolio demo)</title>
+  <meta name="description" content="CleanSpace is a portfolio demo of a cleaning service website with a multi-service estimate and a demo order form. Not a real company.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="i18n/i18n.js" defer></script>
+  <script src="i18n/en.js" defer></script>
+  <script src="i18n/uk.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="common.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top" data-i18n-attr="aria-label:common.logoHome" aria-label="CleanSpace, back to top">CleanSpace</a>
+
+      <nav class="site-nav" id="site-nav" data-i18n-attr="aria-label:nav.label" aria-label="Main">
+        <ul>
+          <li><a href="#services" data-i18n="nav.services">Services</a></li>
+          <li><a href="#how-it-works" data-i18n="nav.how">How it works</a></li>
+          <li><a href="#order" data-i18n="nav.order">Order</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+          <li class="nav-cta-item"><a class="btn btn-primary btn-block" href="#order" data-i18n="nav.cta">Get an estimate</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <div class="lang-switch" role="group" data-i18n-attr="aria-label:common.langGroup" aria-label="Language">
+          <button type="button" data-lang-option="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+          <button type="button" data-lang-option="uk" lang="uk" aria-label="Українська" aria-pressed="false">UA</button>
+        </div>
+        <span class="demo-pill" data-i18n="common.demoPill">Portfolio demo</span>
+        <a class="btn btn-primary btn-small header-cta" href="#order" data-i18n="nav.cta">Get an estimate</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+          <span class="visually-hidden" data-i18n="common.menu">Menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <!-- AI-generated decorative interior for this demo — not a photo of real work. See README. -->
+      <div class="hero-figure">
+        <img class="hero-media" src="img/hero-interior.webp" alt="" width="1914" height="822" decoding="async" fetchpriority="high">
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Home cleaning in Poland</p>
+        <h1 id="hero-title"><span class="hero-title-line" data-i18n="hero.title1">A clean home.</span> <span class="hero-title-line" data-i18n="hero.title2">More time for you.</span></h1>
+        <p class="lead" data-i18n="hero.lead">Home and upholstery cleaning in one order. Choose your services and get an instant estimate.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#order"><span data-i18n="hero.cta">Get an estimate</span> <span aria-hidden="true">→</span></a>
+          <p class="hero-note" data-i18n="hero.note">Prices in PLN · demo estimate</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="services-title" data-i18n="services.title">Our cleaning services</h2>
+          <p data-i18n="services.lead">Four categories, combined in a single order. A minimum order value applies once to the whole order.</p>
+        </header>
+
+        <ul class="category-grid" id="category-grid" role="list">
+          <!-- Cards are rendered by script.js from GET /api/pricing (rates and units come from the server). -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section section-alt" id="how-it-works" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="how-title" data-i18n="how.title">How it works</h2>
+        </header>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3 data-i18n="how.s1t">Build your order</h3>
+            <p data-i18n="how.s1d">Add one or more services. The estimate updates with every change.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3 data-i18n="how.s2t">Add contact details</h3>
+            <p data-i18n="how.s2d">Phone, address and a preferred date and time window.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">3</span>
+            <h3 data-i18n="how.s3t">Preview and send</h3>
+            <p data-i18n="how.s3d">Check the summary and save the request. The time is confirmed separately.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Order -->
+    <section class="section" id="order" aria-labelledby="order-title">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="order-title" data-i18n="order.title">Get an estimate</h2>
+          <p data-i18n="order.lead">Services and prices come from the server. The final price is calculated again by the server when you save.</p>
+        </header>
+
+        <form class="booking" id="booking-form" novalidate>
+          <div class="booking-grid">
+            <!-- 1. Order builder + cart + estimate -->
+            <div class="panel order-panel">
+              <h3 class="panel-title" data-i18n="order.builderTitle">1. Services</h3>
+
+              <div class="pricing-status" id="pricing-status" role="alert" hidden>
+                <p id="pricing-status-text" data-i18n="order.pricesError">Could not load services and prices from the local CleanSpace server.</p>
+                <button class="btn btn-secondary" type="button" id="pricing-retry" data-i18n="common.retry">Try again</button>
+              </div>
+
+              <fieldset class="builder" id="builder">
+                <legend class="visually-hidden" data-i18n="order.builderLegend">Add a service</legend>
+                <div class="field">
+                  <label class="label" for="b-category" data-i18n="order.category">Category</label>
+                  <select class="input" id="b-category"></select>
+                </div>
+                <div class="field">
+                  <label class="label" for="b-service" data-i18n="order.service">Service</label>
+                  <select class="input" id="b-service"></select>
+                </div>
+                <fieldset class="field" id="b-option-field" hidden>
+                  <legend class="label" data-i18n="option.sides.label">Cleaning</legend>
+                  <div class="choice-row" id="b-option"></div>
+                </fieldset>
+                <div class="field">
+                  <label class="label" for="b-quantity" id="b-quantity-label" data-i18n="order.quantity">Quantity</label>
+                  <p class="hint" id="b-quantity-hint"></p>
+                  <div class="qty-row">
+                    <input class="input" type="text" inputmode="decimal" id="b-quantity" autocomplete="off"
+                           aria-describedby="b-quantity-hint b-error">
+                    <span class="qty-unit" id="b-unit" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <p class="error" id="b-error" aria-live="polite"></p>
+                <div class="builder-actions">
+                  <button class="btn btn-primary" type="button" id="b-add" data-i18n="order.add">Add to order</button>
+                  <button class="btn btn-secondary" type="button" id="b-cancel" data-i18n="order.cancelEdit" hidden>Cancel editing</button>
+                </div>
+              </fieldset>
+
+              <h4 class="sub-title" id="cart-title" data-i18n="order.cartTitle">Your order</h4>
+              <p class="cart-empty" id="cart-empty" data-i18n="order.cartEmpty">No services yet. Add at least one service.</p>
+              <ul class="cart" id="cart" role="list" aria-labelledby="cart-title"></ul>
+              <p class="error" id="items-error" aria-live="polite"></p>
+              <p class="status-line" id="cart-status" role="status" aria-live="polite"></p>
+
+              <div class="estimate" id="estimate" aria-live="polite" aria-atomic="true">
+                <dl class="estimate-list">
+                  <div><dt data-i18n="order.subtotal">Services</dt><dd id="est-subtotal">—</dd></div>
+                  <div id="est-topup-row" hidden><dt id="est-topup-label"></dt><dd id="est-topup">—</dd></div>
+                  <div class="estimate-total"><dt data-i18n="order.total">Estimated total</dt><dd id="est-total">—</dd></div>
+                </dl>
+                <p class="estimate-note" id="est-note"></p>
+              </div>
+              <p class="disclaimer" data-i18n="order.disclaimer">Demo estimate — not a real service offer</p>
+            </div>
+
+            <!-- 2. Contact details -->
+            <fieldset class="panel details-panel" id="details">
+              <legend class="panel-title" data-i18n="details.title">2. Your details</legend>
+
+              <div class="field-grid">
+                <div class="field">
+                  <label class="label" for="name" data-i18n="details.name">Name</label>
+                  <input class="input" type="text" id="name" name="name" autocomplete="off" maxlength="80" required aria-describedby="name-error">
+                  <p class="error" id="name-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="email" data-i18n="details.email">Email</label>
+                  <input class="input" type="email" id="email" name="email" autocomplete="off" maxlength="120" required aria-describedby="email-error">
+                  <p class="error" id="email-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="phone" data-i18n="details.phone">Phone</label>
+                  <p class="hint" id="phone-hint" data-i18n="details.phoneHint">International format welcome, e.g. +48 600 000 000.</p>
+                  <input class="input" type="tel" id="phone" name="phone" autocomplete="off" maxlength="25" required aria-describedby="phone-hint phone-error">
+                  <p class="error" id="phone-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="city" data-i18n="details.city">City</label>
+                  <input class="input" type="text" id="city" name="city" autocomplete="off" maxlength="80" required aria-describedby="city-error">
+                  <p class="error" id="city-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="street" data-i18n="details.street">Street and house number</label>
+                  <input class="input" type="text" id="street" name="street" autocomplete="off" maxlength="120" required aria-describedby="street-error">
+                  <p class="error" id="street-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="apartment"><span data-i18n="details.apartment">Apartment / unit</span> <span class="optional" data-i18n="common.optional">(optional)</span></label>
+                  <input class="input" type="text" id="apartment" name="apartment" autocomplete="off" maxlength="20" aria-describedby="apartment-error">
+                  <p class="error" id="apartment-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="date" data-i18n="details.date">Preferred date</label>
+                  <p class="hint" id="date-hint" data-i18n="details.dateHint">Today or later, by Polish time (Europe/Warsaw).</p>
+                  <input class="input" type="date" id="date" name="date" required aria-describedby="date-hint date-error">
+                  <p class="error" id="date-error" aria-live="polite"></p>
+                </div>
+              </div>
+
+              <fieldset class="field time-field" aria-describedby="time-hint time-error">
+                <legend class="label" data-i18n="details.time">Preferred time</legend>
+                <p class="hint" id="time-hint" data-i18n="details.timeHint">Preferred time — subject to confirmation.</p>
+                <div class="choice-row" id="time-options">
+                  <label class="choice"><input type="radio" name="time" value="morning"><span data-i18n="times.morning">Morning</span></label>
+                  <label class="choice"><input type="radio" name="time" value="afternoon"><span data-i18n="times.afternoon">Afternoon</span></label>
+                  <label class="choice"><input type="radio" name="time" value="evening"><span data-i18n="times.evening">Evening</span></label>
+                  <label class="choice"><input type="radio" name="time" value="flexible"><span data-i18n="times.flexible">Flexible</span></label>
+                </div>
+                <p class="error" id="time-error" aria-live="polite"></p>
+              </fieldset>
+
+              <div class="field">
+                <label class="label" for="comment"><span data-i18n="details.comment">Comment</span> <span class="optional" data-i18n="common.optional">(optional)</span></label>
+                <textarea class="input" id="comment" name="comment" rows="3" maxlength="500" aria-describedby="comment-hint comment-error"></textarea>
+                <p class="hint" id="comment-hint" data-i18n="details.commentHint" data-i18n-params='{"max":500}'>Up to 500 characters.</p>
+                <p class="error" id="comment-error" aria-live="polite"></p>
+              </div>
+
+              <noscript><p class="error">JavaScript and the local CleanSpace server are required for prices, the preview and saving.</p></noscript>
+              <button class="btn btn-primary btn-lg btn-block" type="submit" id="preview-btn" disabled data-i18n="preview.button">Preview request</button>
+            </fieldset>
+          </div>
+        </form>
+
+        <section class="preview panel" id="preview" aria-labelledby="preview-title" tabindex="-1" hidden>
+          <h3 id="preview-title" data-i18n="preview.title">Request preview</h3>
+          <div class="preview-grid">
+            <div>
+              <h4 class="sub-title" data-i18n="preview.items">Services</h4>
+              <ul class="preview-items" id="pv-items" role="list"></ul>
+              <dl class="estimate-list" id="pv-totals"></dl>
+            </div>
+            <dl class="preview-list">
+              <div><dt data-i18n="details.name">Name</dt><dd id="pv-name"></dd></div>
+              <div><dt data-i18n="details.email">Email</dt><dd id="pv-email"></dd></div>
+              <div><dt data-i18n="details.phone">Phone</dt><dd id="pv-phone"></dd></div>
+              <div><dt data-i18n="preview.address">Address</dt><dd id="pv-address"></dd></div>
+              <div><dt data-i18n="preview.when">Preferred date and time</dt><dd id="pv-when"></dd></div>
+              <div><dt data-i18n="details.comment">Comment</dt><dd id="pv-comment" class="pre"></dd></div>
+            </dl>
+          </div>
+
+          <!-- The one clear training notice, right next to saving. -->
+          <p class="demo-note" id="demo-note" data-i18n="save.demoNote">Training request: it is saved only in a local database on this computer. Use made-up data only — no real names, emails, phones or addresses.</p>
+          <p class="preview-notice" id="preview-notice" data-i18n="preview.notice">Preview only — not saved yet. The final price is calculated by the server.</p>
+
+          <div class="save-row">
+            <button class="btn btn-primary btn-lg" type="button" id="save-btn" data-i18n="save.save">Save demo request</button>
+            <button class="btn btn-secondary btn-lg" type="button" id="new-request-btn" data-i18n="save.newRequest" hidden>Start a new request</button>
+          </div>
+          <div class="save-status" id="save-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+      <div class="container container-narrow">
+        <header class="section-header">
+          <h2 id="faq-title" data-i18n="faq.title">Questions</h2>
+        </header>
+        <div class="faq">
+          <details><summary data-i18n="faq.q1">Is CleanSpace a real company?</summary><p data-i18n="faq.a1">No. It is a portfolio demo. Requests are saved only in a local database on this computer.</p></details>
+          <details><summary data-i18n="faq.q2">How is the estimate calculated?</summary><p data-i18n="faq.a2">Each service line is rate × quantity, rounded to the nearest grosz. The lines are added up; if the sum is below the minimum order value, the difference is added once for the whole order.</p></details>
+          <details><summary data-i18n="faq.q3">Can I order several services at once?</summary><p data-i18n="faq.a3">Yes — add up to 20 lines to one order, for example home cleaning, a sofa and a carpet.</p></details>
+          <details><summary data-i18n="faq.q4">Is the preferred time a booking?</summary><p data-i18n="faq.a4">No. It is your wish; the date and time are confirmed separately.</p></details>
+          <details><summary data-i18n="faq.q5">Where is my data stored?</summary><p data-i18n="faq.a5">Only “Save demo request” sends it to the local server (127.0.0.1), which stores it in a SQLite file. Nothing goes to the internet. Use made-up data.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="logo logo-footer">CleanSpace</p>
+      <p data-i18n="footer.text">Portfolio demo project — not a real cleaning company. No real bookings or payments.</p>
+      <p class="footer-small" data-i18n="footer.small">HTML, CSS, vanilla JavaScript · Python (Flask) · SQLite</p>
+    </div>
+  </footer>
+</body>
+</html>

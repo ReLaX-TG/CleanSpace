@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+{% block title %}Log in — CleanSpace Admin{% endblock %}
+
+{% block content %}
+<section class="panel login-panel" aria-labelledby="login-title">
+  <h1 id="login-title" data-i18n="admin.login.title">Admin login</h1>
+
+  {% if message %}
+    {# English text first (works without JS); data-i18n lets the page translate it. #}
+    <p class="notice notice-{{ kind }}" role="{{ 'alert' if kind == 'error' else 'status' }}"
+       {% if message_key %}data-i18n="admin.{{ message_key }}" data-i18n-params="{{ message_params|tojson|forceescape }}"{% endif %}>{{ message }}</p>
+  {% endif %}
+
+  {% if configured %}
+    <form method="post" action="{{ url_for('admin.login_post') }}" class="login-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field">
+        <label class="label" for="password" data-i18n="admin.login.password">Password</label>
+        <input class="input" type="password" id="password" name="password"
+               autocomplete="current-password" required autofocus>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit" data-i18n="admin.login.submit">Log in</button>
+    </form>
+  {% else %}
+    <div class="notice notice-info">
+      <p><strong data-i18n="admin.login.notSetTitle">The admin password is not set yet.</strong></p>
+      <p data-i18n="admin.login.notSetBody">Open a second terminal in the project folder, run this command and follow the prompts:</p>
+      <p><code>.venv\Scripts\flask --app app set-admin-password</code></p>
+      <p data-i18n="admin.login.notSetAfter">Then reload this page. The server can keep running.</p>
+    </div>
+  {% endif %}
+
+  <p class="login-foot"><a href="/" data-i18n="admin.login.backToSite">← Back to the public site</a></p>
+</section>
+{% endblock %}

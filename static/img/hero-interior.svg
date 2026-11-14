@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <!-- Original illustration created for the CleanSpace demo project (no external photo).
+       Abstract modern interior: window with greenery, pendant lamp, table, chairs, plant. -->
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2e2c"/>
+      <stop offset="1" stop-color="#1f2221"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f25"/>
+      <stop offset="1" stop-color="#211b16"/>
+    </linearGradient>
+    <linearGradient id="outside" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9bb98b"/>
+      <stop offset="0.55" stop-color="#5f7f52"/>
+      <stop offset="1" stop-color="#3b5134"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="0.5" cy="0" r="0.8">
+      <stop offset="0" stop-color="#f3d9a4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f3d9a4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4e6c4" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#f4e6c4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#wall)"/>
+  <!-- ceiling line -->
+  <rect y="0" width="1600" height="70" fill="#242726"/>
+
+  <!-- window wall -->
+  <g>
+    <rect x="760" y="90" width="840" height="640" fill="url(#outside)"/>
+    <!-- tree canopies -->
+    <g fill="#4f6d43" opacity="0.9">
+      <circle cx="860" cy="260" r="120"/>
+      <circle cx="1010" cy="200" r="140"/>
+      <circle cx="1190" cy="250" r="130"/>
+      <circle cx="1360" cy="210" r="150"/>
+      <circle cx="1530" cy="270" r="120"/>
+    </g>
+    <g fill="#6d8c5d" opacity="0.8">
+      <circle cx="940" cy="330" r="90"/>
+      <circle cx="1110" cy="300" r="100"/>
+      <circle cx="1290" cy="340" r="95"/>
+      <circle cx="1460" cy="320" r="105"/>
+    </g>
+    <g fill="#2f2a22">
+      <rect x="905" y="380" width="14" height="350"/>
+      <rect x="1080" y="360" width="16" height="370"/>
+      <rect x="1270" y="390" width="14" height="340"/>
+      <rect x="1440" y="370" width="16" height="360"/>
+    </g>
+    <rect x="760" y="560" width="840" height="170" fill="#5e7a4f" opacity="0.55"/>
+    <!-- mullions -->
+    <g fill="#191b1a">
+      <rect x="752" y="90" width="16" height="640"/>
+      <rect x="1030" y="90" width="12" height="640"/>
+      <rect x="1310" y="90" width="12" height="640"/>
+      <rect x="760" y="82" width="840" height="14"/>
+      <rect x="760" y="724" width="840" height="12"/>
+    </g>
+  </g>
+
+  <!-- soft sunlight on the floor -->
+  <polygon points="760,736 1600,736 1600,1000 520,1000" fill="url(#sun)"/>
+
+  <!-- floor -->
+  <rect y="736" width="1600" height="264" fill="url(#floor)"/>
+  <rect y="736" width="1600" height="4" fill="#4a3c2f" opacity="0.6"/>
+
+  <!-- kitchen block on the left -->
+  <rect x="80" y="430" width="560" height="306" fill="#2a2d2b"/>
+  <rect x="80" y="420" width="560" height="16" fill="#3a3d3a"/>
+  <rect x="120" y="470" width="230" height="230" fill="#262927"/>
+  <rect x="370" y="470" width="230" height="230" fill="#262927"/>
+  <!-- small plant on the counter -->
+  <rect x="520" y="372" width="44" height="48" rx="6" fill="#4a4d49"/>
+  <g fill="#6f8f5d">
+    <ellipse cx="530" cy="356" rx="26" ry="12" transform="rotate(-25 530 356)"/>
+    <ellipse cx="556" cy="352" rx="26" ry="12" transform="rotate(25 556 352)"/>
+    <ellipse cx="543" cy="338" rx="12" ry="26"/>
+  </g>
+
+  <!-- pendant lamp -->
+  <rect x="1158" y="0" width="4" height="250" fill="#141615"/>
+  <path d="M1040 330 Q1160 210 1280 330 Z" fill="#1d1f1e"/>
+  <ellipse cx="1160" cy="330" rx="120" ry="12" fill="#e9cf96" opacity="0.85"/>
+  <polygon points="1040,334 1280,334 1420,760 900,760" fill="url(#lampGlow)"/>
+
+  <!-- dining table -->
+  <rect x="930" y="600" width="560" height="26" rx="4" fill="#7a5a3d"/>
+  <rect x="930" y="626" width="560" height="10" fill="#5b4330"/>
+  <rect x="960" y="636" width="22" height="200" fill="#5b4330"/>
+  <rect x="1440" y="636" width="22" height="200" fill="#5b4330"/>
+
+  <!-- vase with branches -->
+  <path d="M1176 600 q-26 -10 -18 -58 q6 -30 30 -32 q24 2 30 32 q8 48 -18 58 z" fill="#d9d4c8"/>
+  <g stroke="#6f8f5d" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M1188 512 q-20 -60 -70 -90"/>
+    <path d="M1190 512 q10 -70 50 -110"/>
+    <path d="M1189 512 q-2 -60 6 -120"/>
+  </g>
+  <g fill="#9cbf86">
+    <circle cx="1118" cy="424" r="10"/><circle cx="1140" cy="446" r="8"/>
+    <circle cx="1240" cy="404" r="10"/><circle cx="1222" cy="430" r="8"/>
+    <circle cx="1195" cy="392" r="9"/><circle cx="1160" cy="470" r="7"/>
+  </g>
+
+  <!-- chairs -->
+  <g fill="#4b4d49">
+    <path d="M880 560 h110 l-12 120 h-86 z"/>
+    <rect x="884" y="676" width="98" height="20" rx="6"/>
+    <rect x="890" y="696" width="10" height="150" fill="#2c2e2c"/>
+    <rect x="966" y="696" width="10" height="150" fill="#2c2e2c"/>
+  </g>
+  <g fill="#4b4d49">
+    <path d="M1060 640 h120 l-10 70 h-100 z"/>
+    <rect x="1062" y="706" width="116" height="20" rx="6"/>
+    <rect x="1070" y="726" width="10" height="140" fill="#2c2e2c"/>
+    <rect x="1160" y="726" width="10" height="140" fill="#2c2e2c"/>
+  </g>
+  <g fill="#4b4d49">
+    <path d="M1300 640 h120 l-10 70 h-100 z"/>
+    <rect x="1302" y="706" width="116" height="20" rx="6"/>
+    <rect x="1310" y="726" width="10" height="140" fill="#2c2e2c"/>
+    <rect x="1400" y="726" width="10" height="140" fill="#2c2e2c"/>
+  </g>
+  <g fill="#4b4d49">
+    <path d="M1500 560 h110 l-12 120 h-86 z"/>
+    <rect x="1504" y="676" width="98" height="20" rx="6"/>
+  </g>
+</svg>

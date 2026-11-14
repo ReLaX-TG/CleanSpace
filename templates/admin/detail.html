@@ -1,0 +1,150 @@
+{% extends "admin/base.html" %}
+{% block title %}Request #{{ request_id }} — CleanSpace Admin{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='admin.js') }}" defer></script>{% endblock %}
+{% block nav %}{% include "admin/_nav.html" %}{% endblock %}
+{% block header_actions %}{% include "admin/_logout.html" %}{% endblock %}
+
+{% block content %}
+<div data-page="detail" data-request-id="{{ request_id }}">
+  <p class="back-link"><a href="{{ url_for('admin.requests_page') }}" id="back-link" data-i18n="admin.back">← Back to requests</a></p>
+  <h1 class="admin-title" data-i18n="admin.detail.title" data-i18n-params='{"id": {{ request_id }}}'>Request #{{ request_id }}</h1>
+
+  <div class="state" id="state-loading"><p data-i18n="admin.detail.loading">Loading request…</p></div>
+  <div class="state state-error" id="state-error" role="alert" hidden>
+    <p id="state-error-text"></p>
+    <button class="btn btn-secondary" type="button" id="retry-load" data-i18n="common.retry">Try again</button>
+  </div>
+
+  <div class="detail-grid" id="detail" hidden>
+    <!-- Customer data (read-only) -->
+    <section class="panel" aria-labelledby="customer-title">
+      <h2 id="customer-title" class="panel-heading" data-i18n="admin.detail.customerTitle">Customer request</h2>
+      <p class="hint" data-i18n="admin.detail.customerHint">Submitted by the customer. Read-only.</p>
+      <dl class="detail-list">
+        <div><dt data-i18n="admin.detail.number">Number</dt><dd id="d-id"></dd></div>
+        <div><dt data-i18n="admin.detail.created">Created</dt><dd id="d-created"></dd></div>
+        <div><dt data-i18n="admin.detail.name">Name</dt><dd id="d-name"></dd></div>
+        <div><dt data-i18n="admin.detail.email">Email</dt><dd id="d-email"></dd></div>
+        <div><dt data-i18n="admin.detail.phone">Phone</dt><dd id="d-phone"></dd></div>
+        <div><dt data-i18n="admin.detail.address">Address</dt><dd id="d-address"></dd></div>
+        <div><dt data-i18n="admin.detail.preferred">Preferred date and time</dt><dd id="d-preferred"></dd></div>
+        <div><dt data-i18n="admin.detail.comment">Customer comment</dt><dd id="d-comment" class="pre"></dd></div>
+      </dl>
+    </section>
+
+    <!-- Order lines and price breakdown (read-only snapshot) -->
+    <section class="panel" aria-labelledby="items-title">
+      <h2 id="items-title" class="panel-heading" data-i18n="admin.detail.itemsTitle">Order and estimate</h2>
+      <p class="hint" data-i18n="admin.detail.itemsHint">Rates and quantities as saved with the order.</p>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="admin.detail.colService">Service</th>
+              <th scope="col" class="num" data-i18n="admin.detail.colQty">Quantity</th>
+              <th scope="col" class="num" data-i18n="admin.detail.colRate">Rate</th>
+              <th scope="col" class="num" data-i18n="admin.detail.colTotal">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="d-items"></tbody>
+        </table>
+      </div>
+      <dl class="estimate-list price-breakdown" id="d-prices"></dl>
+    </section>
+
+    <!-- Manage -->
+    <section class="panel manage-panel" aria-labelledby="manage-title">
+      <h2 id="manage-title" class="panel-heading" data-i18n="admin.detail.manageTitle">Manage</h2>
+      <p class="hint" data-i18n="admin.detail.manageHint">Customer data and the original estimate cannot be changed.</p>
+
+      <form id="edit-form" novalidate>
+        <div class="field">
+          <label class="label" for="edit-status" data-i18n="admin.detail.status">Status</label>
+          <select class="input" id="edit-status" name="status" aria-describedby="edit-status-error">
+            {% for key, label in statuses.items() %}
+            <option value="{{ key }}" data-i18n="status.{{ key }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+          <p class="error" id="edit-status-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="edit-note"><span data-i18n="admin.detail.note">Internal note</span> <span class="optional" data-i18n="admin.detail.noteOnly">(only visible to admins)</span></label>
+          <textarea class="input" id="edit-note" name="adminNote" rows="5" maxlength="{{ note_max }}"
+                    aria-describedby="edit-note-count edit-note-error"></textarea>
+          <p class="hint note-count" id="edit-note-count" aria-live="polite"></p>
+          <p class="error" id="edit-note-error" aria-live="polite"></p>
+        </div>
+
+        <fieldset class="agreed">
+          <legend class="label" data-i18n="admin.detail.agreedTitle">Agreement with the customer</legend>
+          <p class="hint" data-i18n="admin.detail.agreedHint">Empty until agreed. Saving here does not notify the customer.</p>
+          <div class="field-grid">
+            <div class="field">
+              <label class="label" for="edit-agreed-date" data-i18n="admin.detail.agreedDate">Agreed date</label>
+              <input class="input" type="date" id="edit-agreed-date" aria-describedby="edit-agreed-date-error">
+              <p class="error" id="edit-agreed-date-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label class="label" for="edit-agreed-time" data-i18n="admin.detail.agreedTime">Agreed time</label>
+              <p class="hint" id="edit-agreed-time-hint" data-i18n="admin.detail.agreedTimeHint">24-hour, e.g. 09:30</p>
+              <input class="input" type="text" inputmode="numeric" id="edit-agreed-time" maxlength="5" autocomplete="off"
+                     placeholder="HH:MM" aria-describedby="edit-agreed-time-hint edit-agreed-time-error">
+              <p class="error" id="edit-agreed-time-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label class="label" for="edit-agreed-total" data-i18n="admin.detail.agreedTotalLabel">Agreed total (PLN)</label>
+              <p class="hint" id="edit-agreed-total-hint" data-i18n="admin.detail.agreedTotalHint">Leave empty to use the original estimate.</p>
+              <input class="input" type="text" inputmode="decimal" id="edit-agreed-total" maxlength="12" autocomplete="off"
+                     aria-describedby="edit-agreed-total-hint edit-agreed-total-error">
+              <p class="error" id="edit-agreed-total-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label class="label" for="edit-price-reason" data-i18n="admin.detail.priceReason">Reason for the price change</label>
+              <p class="hint" id="edit-price-reason-hint" data-i18n="admin.detail.priceReasonHint">Required whenever the agreed total changes.</p>
+              <input class="input" type="text" id="edit-price-reason" maxlength="{{ reason_max }}" autocomplete="off"
+                     aria-describedby="edit-price-reason-hint edit-price-reason-error">
+              <p class="error" id="edit-price-reason-error" aria-live="polite"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <p class="hint" id="d-updated"></p>
+        <button class="btn btn-primary btn-lg" type="submit" id="save-btn" data-i18n="admin.detail.save">Save changes</button>
+      </form>
+
+      <div class="save-status" id="save-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      <div class="conflict-actions" id="conflict-actions" hidden>
+        <button class="btn btn-secondary" type="button" id="load-latest" data-i18n="admin.detail.loadLatest">Discard my changes and load the latest version</button>
+      </div>
+    </section>
+
+    <!-- History (read-only, append-only) -->
+    <section class="panel" aria-labelledby="history-title">
+      <h2 id="history-title" class="panel-heading" data-i18n="admin.history.title">History of changes</h2>
+      <p class="hint" data-i18n="admin.history.hint">Recorded automatically; it cannot be edited.</p>
+      <p class="history-empty" id="history-empty" data-i18n="admin.history.empty">No changes yet.</p>
+      <ol class="history" id="history" reversed></ol>
+    </section>
+
+    <!-- Telegram delivery (NOT the cleaning status) -->
+    <section class="panel notif-panel" aria-labelledby="notif-title">
+      <h2 id="notif-title" class="panel-heading" data-i18n="admin.notif.title">Telegram notification</h2>
+      <p class="hint" data-i18n="admin.notif.hint">Delivery of the admin notification about this request. This is not the cleaning status.</p>
+      <p class="notif-state">
+        <span class="notif-label" data-i18n="admin.notif.delivery">Delivery:</span>
+        <span class="notif-badge" id="notif-badge">—</span>
+        <button class="btn btn-secondary btn-small" type="button" id="notif-refresh" data-i18n="admin.notif.refresh">Refresh delivery status</button>
+      </p>
+      <p class="notif-explain" id="notif-explain"></p>
+      <dl class="detail-list notif-facts" id="notif-facts"></dl>
+      <p class="notice notice-warning" id="notif-uncertain" hidden></p>
+      <div class="notif-retry" id="notif-retry" hidden>
+        <p class="hint" data-i18n="admin.notif.retryHint">Retry uses the same queue job.</p>
+        <button class="btn btn-secondary" type="button" id="notif-retry-btn" data-i18n="admin.notif.retry">Retry notification</button>
+      </div>
+      <div class="save-status" id="notif-message" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    </section>
+  </div>
+</div>
+{% endblock %}

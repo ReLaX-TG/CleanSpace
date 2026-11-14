@@ -1,0 +1,66 @@
+{% extends "admin/base.html" %}
+{% block title %}Requests — CleanSpace Admin{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='admin.js') }}" defer></script>{% endblock %}
+{% block nav %}{% include "admin/_nav.html" %}{% endblock %}
+{% block header_actions %}{% include "admin/_logout.html" %}{% endblock %}
+
+{% block content %}
+<div data-page="list">
+  <h1 class="admin-title" data-i18n="admin.list.title">Requests</h1>
+
+  <section class="totals" aria-labelledby="totals-title">
+    <h2 id="totals-title" class="totals-title"><span data-i18n="admin.list.totalsTitle">All-time totals</span> <span class="totals-note" data-i18n="admin.list.totalsNote">— not affected by filters or search</span></h2>
+    <dl class="totals-list" id="totals">
+      <div><dt data-i18n="admin.list.all">All</dt><dd data-count="all">—</dd></div>
+      {% for key, label in statuses.items() %}
+      <div class="total-{{ key }}"><dt data-i18n="status.{{ key }}">{{ label }}</dt><dd data-count="{{ key }}">—</dd></div>
+      {% endfor %}
+    </dl>
+  </section>
+
+  <form class="filters panel" id="filters" role="search" novalidate>
+    <div class="field">
+      <label class="label" for="filter-q" data-i18n="admin.list.search">Search</label>
+      <p class="hint" id="filter-q-hint" data-i18n="admin.list.searchHint">Request number (12 or #12), name, email or phone.</p>
+      <input class="input" type="search" id="filter-q" name="q" maxlength="120" autocomplete="off" aria-describedby="filter-q-hint">
+    </div>
+    <div class="field">
+      <label class="label" for="filter-status" data-i18n="admin.list.status">Status</label>
+      <select class="input" id="filter-status" name="status">
+        <option value="" data-i18n="admin.list.allStatuses">All statuses</option>
+        {% for key, label in statuses.items() %}
+        <option value="{{ key }}" data-i18n="status.{{ key }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="filter-actions">
+      <button class="btn btn-primary" type="submit" data-i18n="admin.list.apply">Apply</button>
+      <button class="btn btn-secondary" type="button" id="filter-reset" data-i18n="admin.list.clear">Clear</button>
+    </div>
+  </form>
+
+  <section aria-labelledby="results-title">
+    <h2 id="results-title" class="visually-hidden" data-i18n="admin.list.title">Requests</h2>
+    <p class="results-summary" id="results-summary" role="status" aria-live="polite"></p>
+
+    <div class="state" id="state-loading" hidden><p data-i18n="admin.list.loading">Loading requests…</p></div>
+    <div class="state state-error" id="state-error" role="alert" hidden>
+      <p id="state-error-text"></p>
+      <button class="btn btn-secondary" type="button" id="retry-load" data-i18n="common.retry">Try again</button>
+    </div>
+    <div class="state" id="state-empty" hidden><p data-i18n="admin.list.empty">No requests yet.</p></div>
+    <div class="state" id="state-no-results" hidden>
+      <p data-i18n="admin.list.noResults">No requests match your search or filter.</p>
+      <button class="btn btn-secondary" type="button" id="clear-filters" data-i18n="admin.list.clearFilters">Clear search and filter</button>
+    </div>
+
+    <ul class="request-list" id="request-list" role="list"></ul>
+
+    <nav class="pagination" id="pagination" data-i18n-attr="aria-label:admin.list.paginationLabel" aria-label="Pagination" hidden>
+      <button class="btn btn-secondary" type="button" id="page-prev" data-i18n="admin.list.prev">← Previous</button>
+      <p class="page-info" id="page-info" aria-live="polite"></p>
+      <button class="btn btn-secondary" type="button" id="page-next" data-i18n="admin.list.next">Next →</button>
+    </nav>
+  </section>
+</div>
+{% endblock %}

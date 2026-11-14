@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}CleanSpace Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+  <script src="{{ url_for('static', filename='i18n/i18n.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='i18n/en.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='i18n/uk.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#main" data-i18n="common.skip">Skip to main content</a>
+
+  <header class="site-header admin-header">
+    <div class="container header-inner">
+      <a class="logo" href="{{ url_for('admin.requests_page') }}">CleanSpace <span class="admin-badge" data-i18n="admin.badge">Admin</span></a>
+      {% block nav %}{% endblock %}
+      <div class="header-tools">
+        <div class="lang-switch" role="group" data-i18n-attr="aria-label:common.langGroup" aria-label="Language">
+          <button type="button" data-lang-option="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+          <button type="button" data-lang-option="uk" lang="uk" aria-label="Українська" aria-pressed="false">UA</button>
+        </div>
+        <span class="demo-pill" data-i18n="admin.demo">Demo CRM — made-up data only</span>
+        {% block header_actions %}{% endblock %}
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="admin-main">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</body>
+</html>
