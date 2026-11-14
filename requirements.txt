@@ -1,0 +1,5 @@
+Flask>=3.1,<4
+# CSRF protection for the admin CRM (CSRFProtect).
+Flask-WTF>=1.2,<2
+# Windows has no built-in IANA time zone database; zoneinfo needs this for Europe/Warsaw.
+tzdata>=2024.1

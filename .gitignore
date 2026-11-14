@@ -1,0 +1,27 @@
+# Python virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local SQLite database (contains demo requests) — never commit
+instance/
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Secrets / local settings
+.env
+.env.*
+*.pem
+*.key
+secrets*
+
+# Local backups and tool folders
+_backup/
+.claude/
